@@ -1,75 +1,85 @@
-import React from "react";
-import axios from "axios";
+import React from 'react';
+import axios from 'axios';
 
-import { MovieCard } from "../movie-card/movie-card";
-import { MovieView } from "../movie-view/movie-view";
+import { RegistrationView } from '../registration-view/registration-view';
+import { LoginView } from '../login-view/login-view';
+import { MovieCard } from '../movie-card/movie-card';
+import { MovieView } from '../movie-view/movie-view';
+import './main-view.scss';
 
 export class MainView extends React.Component {
+  // code executed right when the component is created in the memory, happens before "rendering" the component
   constructor() {
-    // Call the superclass constructor
-    // so React can initialize it
     super();
 
-    // Initialize the state to an empty object so we can destructure it later
     this.state = {
+      movies: [],
       selectedMovie: null,
+      user: null
     };
   }
 
-  // One of the "hooks" available in a React Component
-  componentDidMount() {
-    axios
-      .get("https://obscure-sands-24856.herokuapp.com/movies")
-      .then((response) => {
-        // Assign the result to the state
-        this.setState({
-          movies: response.data,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
+  componentDidMount(){
+    axios.get('https://best-flix-10922.herokuapp.com/movies')
+    .then(response => {
+      //Assign the result to the state
+      this.setState({
+        movies: response.data
       });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+  
+  // when home button is clicked, this function sets selectedMovie state back to "null", re-rendering the DOM and bringing user back to main-view
+  onHomeClick() {
+    this.setState({
+      selectedMovie: null
+    });
   }
 
+  // when movie is clicked, this function sets selectedMovie state "movie", re-rendering the DOM and bringing up movie-view
   onMovieClick(movie) {
     this.setState({
-      selectedMovie: movie,
+      selectedMovie: movie
     });
   }
 
-  setInititalState() {
+  // When a user successfully logs in, this function updates the `user` property in state to that particular user
+  onLoggedIn(user) {
     this.setState({
-      selectedMovie: null,
+      user
     });
   }
 
-  // This overrides the render() method of the superclass
-  // No need to call super() though, as it does nothing by default
+  // 
+  onRegister(register) {
+    this.setState({
+      register
+    });
+  }
+
   render() {
-    // If the state isn't initialized, this will throw on runtime
-    // before the data is initially loaded
-    const { movies, selectedMovie } = this.state;
+    //If the state isn't initialized, this will throw on runtime
+    //before the data is initially loaded
+    const { movies, selectedMovie, user, register } = this.state;
 
-    // Before the movies have been loaded
-    if (!movies) return <div className="main-view" />;
+    /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are passed as a prop to the LoginView*/
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
+    if (!register) return <RegistrationView onRegister={register => this.onRegister(register)} />;
+
+    //before the movies have been loaded
+    if (!movies) return <div className='main-view'/>;
     return (
-      <div className="main-view">
-        {selectedMovie ? (
-          <MovieView
-            movie={selectedMovie}
-            onClick={() => this.setInititalState()}
-          />
-        ) : (
-          movies.map((movie) => (
-            <MovieCard
-              key={movie._id}
-              movie={movie}
-              //   onClick={(movie) => console.log(movie)}
-              onClick={(movie) => this.onMovieClick(movie)}
-            />
+      <div className='main-view'>
+        { selectedMovie
+          ? <MovieView movie={selectedMovie} onClick={() => this.onHomeClick()}/>
+          : movies.map(movie => (
+            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
           ))
-        )}
+        }
       </div>
     );
   }
