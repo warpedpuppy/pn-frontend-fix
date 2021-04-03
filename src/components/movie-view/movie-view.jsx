@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-import { MainView } from '../MainView/main-view';
+import { MainView } from '../main-view/main-view';
 
 import './movie-view.scss';
 
