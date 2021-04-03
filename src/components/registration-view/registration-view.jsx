@@ -1,97 +1,92 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import './registration.scss';
 
-import "./registration-view.scss";
+import { MainView } from '../main-view/main-view';
 
 export function RegistrationView(props) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, createUsername] = useState('');
+  const [password, createPassword] = useState('');
+  const [email, createEmail] = useState('');
+  const [birthday, createDob] = useState('');
 
-  const handleRegistration = () => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(firstName, lastName, username, password, email, birthday);
-    props.onRegister(register);
+
+    axios
+      .post('https://myflixdbs-z.herokuapp.com/users', {
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthday,
+      })
+      .then((response) => {
+        const data = response.data;
+        alert("You now exist in the world of Murph's Movies! Please log in, if you dare!");
+        console.log(data);
+        window.open('/login', '_self');
+      })
+      .catch((e) => {
+        console.log('Swing and a miss! There was an error registering user');
+      });
   };
 
   return (
-    <form className="registration">
-      <label>
-        First Name:
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </label>
-      <label>
-        Last Name:
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </label>
-      <label>
-        Birthday:
-        <input
-          type="text"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
-        />
-      </label>
-      <label>
-        Username:
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="text"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
-      <label>
-        Confirm Password:
-        <input
-          type="text"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-      </label>
-      <button type="submit" onClick={handleRegistration}>
-        Submit
-      </button>
-    </form>
+    <Container className="registration-container">
+      <Form className="registration-form">
+        <Form.Group controlID="formBasicUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Create Username"
+            value={username}
+            onChange={(e) => createUsername(e.target.value)} />
+        </Form.Group>
+        <Form.Group controlID="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Create Password"
+            value={password}
+            onChange={(e) => createPassword(e.target.value)} />
+        </Form.Group>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => createEmail(e.target.value)} />
+          <Form.Text className="text-muted">
+            Your info is safe with us! We will never share with anyone, even your own mother.
+            </Form.Text>
+        </Form.Group>
+        <Form.Group controlID="formBasicDob">
+          <Form.Label>Birthday</Form.Label>
+          <Form.Control
+            type="date"
+            placeholder="mm/dd/yyyy"
+            value={birthday}
+            onChange={(e) => createDob(e.target.value)} />
+        </Form.Group>
+        <Button className="submit-user" type="submit" onClick={handleSubmit}>
+          Register
+        </Button>
+      </Form>
+    </Container>
   );
 }
 
 RegistrationView.propTypes = {
-  register: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    birthday: PropTypes.date.isRequired, //note - this might need to be considered a string
+  newUser: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    confirmPassword: PropTypes.string.isRequired,
-  }).isRequired,
-  onRegister: PropTypes.func.isRequired,
+    email: PropTypes.string.isRequired,
+    birthday: PropTypes.string.isRequired,
+  })
 };
