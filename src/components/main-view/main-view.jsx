@@ -50,7 +50,8 @@ export class MainView extends React.Component {
   render() {
 
     // Before data is initially loaded
-    const { movies, selectedMovie, user } = this.state;
+    const { movies, selectedMovie, onMovieClick, user } = this.state;
+    if (onMovieClick) return <MovieView movie={onMovieClick} onBackClick={onMovieClick => { this.setSelectedMovie(onMovieClick); }} />;
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 

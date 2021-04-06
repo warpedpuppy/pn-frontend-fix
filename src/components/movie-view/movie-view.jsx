@@ -14,11 +14,12 @@ export class MovieView extends React.Component {
 
     this.state = {
       mainView: null
+      
     };
   }
 
   render() {
-    const { movie, onClick, button } = this.props;
+    const { movie, onClick, onBackClick, button } = this.props;
     const { mainView } = this.state;
 
     if (!movie) return null;
@@ -42,7 +43,7 @@ export class MovieView extends React.Component {
           <span className="value">{movie.Director.Name}</span>
         </div>
         <div className="back-button">
-          <Button onClick={() => window.open(mainView, "_self")} className="back-button" variant="outline-primary" size="lg">Back</Button>
+        <Button variant='primary' onClick={() => onClick(movie)}>Return to Movie List</Button>
         </div>
       </Container>
     );

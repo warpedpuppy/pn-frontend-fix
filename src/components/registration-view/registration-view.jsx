@@ -19,7 +19,7 @@ export function RegistrationView(props) {
     e.preventDefault();
 
     axios
-      .post('https://myflixdbs-z.herokuapp.com/users', {
+      .post('http://obscure-sands-24856.herokuapp.com/users', {
         Username: username,
         Password: password,
         Email: email,
