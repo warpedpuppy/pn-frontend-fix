@@ -77,6 +77,9 @@ export function RegistrationView(props) {
         <Button className="submit-user" type="submit" onClick={handleSubmit}>
           Register
         </Button>
+        <Button onClick={props.returnToLogin}>
+          Go Back To Login
+          </Button>
       </Form>
     </Container>
   );

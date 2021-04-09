@@ -35095,7 +35095,9 @@ function RegistrationView(props) {
     className: "submit-user",
     type: "submit",
     onClick: handleSubmit
-  }, "Register")));
+  }, "Register"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+    onClick: props.returnToLogin
+  }, "Go Back To Login")));
 }
 
 RegistrationView.propTypes = {
@@ -35192,12 +35194,7 @@ function LoginView(props) {
     type: "submit",
     onClick: handleSubmit
   }, "Login"), /*#__PURE__*/_react.default.createElement(_Button.default, {
-    onClick: function onClick() {
-      return window.location("../registration-view/registration-view", "_self");
-    },
-    variant: "button",
-    className: "register-button",
-    type: "submit"
+    onClick: props.goToRegistration
   }, "Register")));
 }
 
@@ -35628,6 +35625,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var MainView = /*#__PURE__*/function (_React$Component) {
   _inherits(MainView, _React$Component);
 
@@ -35640,10 +35639,23 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this); // Initialize the state to an empty object so we can destructrue it later
 
+    _defineProperty(_assertThisInitialized(_this), "toggleLogin", function () {
+      _this.setState({
+        login: !_this.state.login
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "returnToMovieList", function () {
+      _this.setState({
+        selectedMovie: null
+      });
+    });
+
     _this.state = {
       movies: null,
       selectedMovie: null,
-      user: null
+      user: null,
+      login: true
     };
     return _this;
   }
@@ -35686,6 +35698,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           selectedMovie = _this$state.selectedMovie,
+          login = _this$state.login,
           onMovieClick = _this$state.onMovieClick,
           user = _this$state.user;
       if (onMovieClick) return /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
@@ -35694,11 +35707,22 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           _this3.setSelectedMovie(onMovieClick);
         }
       });
-      if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
-        onLoggedIn: function onLoggedIn(user) {
-          return _this3.onLoggedIn(user);
+
+      if (!user) {
+        if (login) {
+          return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
+            onLoggedIn: function onLoggedIn(user) {
+              return _this3.onLoggedIn(user);
+            },
+            goToRegistration: this.toggleLogin
+          });
+        } else {
+          return /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, {
+            returnToLogin: this.toggleLogin
+          });
         }
-      }); // Before movies have been loaded
+      } // Before movies have been loaded
+
 
       if (!movies) return /*#__PURE__*/_react.default.createElement("div", {
         className: "main-view"
@@ -35706,7 +35730,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/_react.default.createElement(_Container.default, {
         className: "main-view"
       }, selectedMovie ? /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
-        movie: selectedMovie
+        movie: selectedMovie,
+        onClick: this.returnToMovieList
       }) : movies.map(function (movie) {
         return /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
           key: movie.id,
@@ -35819,7 +35844,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49993" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52528" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

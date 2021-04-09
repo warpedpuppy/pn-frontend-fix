@@ -41,7 +41,7 @@ export function LoginView(props) {
         <Button className="submit-login" variant="button" type="submit" onClick={handleSubmit}>
           Login
         </Button>
-        <Button onClick={() => window.location("../registration-view/registration-view", "_self")} variant="button" className="register-button" type="submit">
+        <Button onClick={props.goToRegistration}>
           Register
           </Button>
       </Form>

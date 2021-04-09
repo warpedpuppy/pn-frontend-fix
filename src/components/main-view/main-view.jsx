@@ -17,10 +17,15 @@ export class MainView extends React.Component {
     this.state = {
       movies: null,
       selectedMovie: null,
-      user: null
+      user: null,
+      login: true
     };
   }
-
+toggleLogin = () => {
+  this.setState({
+    login: !this.state.login
+  })
+}
   componentDidMount() {
     axios.get('https://obscure-sands-24856.herokuapp.com/movies')
       .then(response => {
@@ -39,7 +44,11 @@ export class MainView extends React.Component {
       selectedMovie: movie
     });
   }
-
+  returnToMovieList = () => {
+      this.setState({
+      selectedMovie: null
+    });
+  }
   onLoggedIn(user) {
     this.setState({
       user
@@ -50,10 +59,17 @@ export class MainView extends React.Component {
   render() {
 
     // Before data is initially loaded
-    const { movies, selectedMovie, onMovieClick, user } = this.state;
+    const { movies, selectedMovie, login, onMovieClick, user } = this.state;
     if (onMovieClick) return <MovieView movie={onMovieClick} onBackClick={onMovieClick => { this.setSelectedMovie(onMovieClick); }} />;
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!user) {
+      if(login){
+        return <LoginView onLoggedIn={user => this.onLoggedIn(user)}  goToRegistration={this.toggleLogin}/>;
+      } else{
+        return <RegistrationView returnToLogin={this.toggleLogin}/>
+      }
+    }
+
 
     // Before movies have been loaded
     if (!movies) return <div className="main-view" />;
@@ -61,9 +77,12 @@ export class MainView extends React.Component {
     return (
       <Container className="main-view">
         {selectedMovie
-          ? <MovieView movie={selectedMovie} />
+          ? <MovieView movie={selectedMovie} onClick={this.returnToMovieList}
+          />
           : movies.map(movie => (
             <MovieCard key={movie.id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
+          
+
           ))
         }
       </Container>
