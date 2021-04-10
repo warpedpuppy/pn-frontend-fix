@@ -1,57 +1,54 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import axios from 'axios';
-import './login-view.scss';
-import RegistrationView from "../registration-view/registration-view";
+import axios from "axios";
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 export function LoginView(props) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    // Send request to server for auth
-    props.onLoggedIn(username);
+    /* Send a request to the server for authentication */
+    axios
+      .post("http://obscure-sands-24856.herokuapp.com/login", {
+        Username: username,
+        Password: password,
+      })
+      .then((response) => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch((e) => {
+        alert("No such user");
+        console.log("no such user");
+      });
   };
 
   return (
-    <Container className="login-container">
-      <Form>
-        <Form.Group controlId="formBasicUsername">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)} />
-        </Form.Group>
+    <Form>
+      <Form.Group controlId="formBasicUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} />
-        </Form.Group>
-        <Button className="submit-login" variant="button" type="submit" onClick={handleSubmit}>
-          Login
-        </Button>
-        <Button onClick={props.goToRegistration}>
-          Register
-          </Button>
-      </Form>
-    </Container>
+      <Form.Group controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit" onClick={handleSubmit}>
+        Submit
+      </Button>
+    </Form>
   );
 }
-
-LoginView.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired
-  })
-};
