@@ -1,3 +1,39 @@
+.movie-card {
+  justify-content: space-evenly;
+  display: grid;
+}
+.movie-border {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display: grid;
+}
+.login-border {
+  margin: 50px;
+  padding: 60px;
+}
+.registration-form {
+  margin: 50px;
+  padding: 60px;
+}
+.director-view {
+  margin: auto;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.genre-view {
+  margin: auto;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
 .my-flix {
   color: steelblue;
 }
