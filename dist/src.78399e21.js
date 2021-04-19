@@ -42563,10 +42563,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
         style: {
           width: '50rem'
         }
-      }, /*#__PURE__*/_react.default.createElement(_Card.default.Img, {
-        variant: "top",
-        src: movie.ImagePath
-      }), /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, movie.Title), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, movie.Description), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, movie.Title), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, movie.Description), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
         to: "/movies/".concat(movie._id)
       }, /*#__PURE__*/_react.default.createElement(_Button.default, {
         variant: "link"
@@ -42581,8 +42578,7 @@ exports.MovieCard = MovieCard;
 MovieCard.propTypes = {
   movie: _propTypes.default.shape({
     Title: _propTypes.default.string.isRequired,
-    Description: _propTypes.default.string.isRequired,
-    ImagePath: _propTypes.default.string.isRequired
+    Description: _propTypes.default.string.isRequired
   })
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/CardColumns":"../node_modules/react-bootstrap/esm/CardColumns.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-card.scss":"components/movie-card/movie-card.scss"}],"components/movies-list/movies-list.jsx":[function(require,module,exports) {
@@ -54933,7 +54929,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50478" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57345" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
