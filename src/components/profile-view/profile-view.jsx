@@ -12,14 +12,14 @@ export function ProfileView(props) {
   const [email, setEmail] = useState("");
 
   const handleUpdate = (e) => {
+    let user=localStorage.getItem("user")
+    let token=localStorage.getItem("token")
     e.preventDefault();
     axios
       .put(
-        `https://obscure-sands-24856.herokuapp.com/users/${localStorage.getItem(
-          "user"
-        )}`,
+        `https://obscure-sands-24856.herokuapp.com/users/${user}`,
         {
-          // headers: { Authorization: `Bearer ${token}`},
+           headers: { Authorization: `Bearer ${token}`},
           Username: username,
           Password: password,
           Email: email,

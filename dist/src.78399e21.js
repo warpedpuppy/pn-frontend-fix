@@ -53601,7 +53601,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MovieView = void 0;
+exports.MovieView = MovieView;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -53617,117 +53617,59 @@ var _reactBootstrap = require("react-bootstrap");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function MovieView(props) {
+  var backButton = function backButton() {
+    var history = (0, _reactRouterDom.useHistory)();
+    history.push("/");
+  };
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function addToFav(movie) {
+    var token = localStorage.getItem("token");
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+    var url = "https://obscure-sands-24856.herokuapp.com/users/" + localStorage.getItem("user") + "/movies/" + movie._id;
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var MovieView = /*#__PURE__*/function (_React$Component) {
-  _inherits(MovieView, _React$Component);
-
-  var _super = _createSuper(MovieView);
-
-  function MovieView() {
-    var _this;
-
-    _classCallCheck(this, MovieView);
-
-    _this = _super.call(this);
-
-    _defineProperty(_assertThisInitialized(_this), "backButton", function () {
-      var history = (0, _reactRouterDom.useHistory)();
-
-      function handleClick() {
-        history.push("");
+    _axios.default.post(url, {
+      headers: {
+        Authorization: "Bearer ".concat(token)
       }
+    }).then(function (response) {
+      console.log(response);
     });
 
-    _this.state = {};
-    return _this;
+    alert("Added to the list!");
   }
 
-  _createClass(MovieView, [{
-    key: "addToFav",
-    value: function addToFav(movie) {
-      var token = localStorage.getItem("token");
-
-      var url = "https://obscure-sands-24856.herokuapp.com/users/" + localStorage.getItem("user") + "/movies/" + movie._id;
-
-      _axios.default.post(url, {
-        headers: {
-          Authorization: "Bearer ".concat(token)
-        }
-      }).then(function (response) {
-        console.log(response);
-      });
-
-      alert("Added to the list!");
+  var movie = this.props.movie;
+  if (!movie) return null;
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "movie-view movie-border"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
+    style: {
+      width: "50rem"
     }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var movie = this.props.movie;
-      if (!movie) return null;
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "movie-view movie-border"
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
-        style: {
-          width: "50rem"
-        }
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Image, {
-        className: "movie-poster",
-        src: movie.ImagePath,
-        rounded: true
-      }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, null, movie.Title), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, movie.Description), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Director: ", movie.Director.Name), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Genre: ", movie.Genre.Name))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Footer, {
-        style: {
-          width: "50rem"
-        }
-      }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-        to: "/director/".concat(movie.Director.Name)
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "link"
-      }, "Director")), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-        to: "/genre/".concat(movie.Genre.Name)
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "link"
-      }, "Genre")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "secondary",
-        onClick: function onClick() {
-          return _this2.addToFav(movie);
-        }
-      }, "Add to Favorites"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        onClick: function onClick() {
-          return _this2.backButton(history);
-        }
-      }, "Back to previous")));
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Image, {
+    className: "movie-poster",
+    src: movie.ImagePath,
+    rounded: true
+  }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, null, movie.Title), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, movie.Description), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Director: ", movie.Director.Name), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Genre: ", movie.Genre.Name))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Footer, {
+    style: {
+      width: "50rem"
     }
-  }]);
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/director/".concat(movie.Director.Name)
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "link"
+  }, "Director")), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/genre/".concat(movie.Genre.Name)
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "link"
+  }, "Genre")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    onClick: function onClick() {
+      return backButton();
+    }
+  }, "Back to previous")));
+}
 
-  return MovieView;
-}(_react.default.Component);
-
-exports.MovieView = MovieView;
 MovieView.propTypes = {
   movie: _propTypes.default.shape({
     ImagePath: _propTypes.default.string.isRequired,
@@ -54199,10 +54141,14 @@ function ProfileView(props) {
       setEmail = _useState6[1];
 
   var handleUpdate = function handleUpdate(e) {
+    var user = localStorage.getItem("user");
+    var token = localStorage.getItem("token");
     e.preventDefault();
 
-    _axios.default.put("https://obscure-sands-24856.herokuapp.com/users/".concat(localStorage.getItem("user")), {
-      // headers: { Authorization: `Bearer ${token}`},
+    _axios.default.put("https://obscure-sands-24856.herokuapp.com/users/".concat(user), {
+      headers: {
+        Authorization: "Bearer ".concat(token)
+      },
       Username: username,
       Password: password,
       Email: email
@@ -54353,11 +54299,16 @@ var ProfileViewInfo = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var accessToken = localStorage.getItem("token");
+      var temporaryObject = {
+        Username: localStorage.getItem("user")
+      };
+      var newUser = Object.assign({}, this.state.user, temporaryObject);
+      console.log("New User");
 
       if (accessToken !== null) {
-        this.setState({
-          user: localStorage.getItem("user")
-        });
+        // this.setState({
+        //   user: Object.assign({},this.state.user,temporaryObject)
+        // });
         this.getUser(accessToken);
       }
     }
@@ -54366,7 +54317,7 @@ var ProfileViewInfo = /*#__PURE__*/function (_React$Component) {
     value: function getUser(token) {
       var _this2 = this;
 
-      var url = "https://obscure-sands-24856.herokuapp.com/user/".concat(localStorage.getItem("user"));
+      var url = "https://obscure-sands-24856.herokuapp.com/users/".concat(localStorage.getItem("user"));
 
       _axios.default.get(url, {
         headers: {
@@ -54436,7 +54387,7 @@ var ProfileViewInfo = /*#__PURE__*/function (_React$Component) {
       });
       if (!user) return null;
       return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Card.default, null, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "User: ", user.Username), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Email: ", user.Email), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null)), /*#__PURE__*/_react.default.createElement(_Card.default.Footer, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-        to: "/user/".concat(user)
+        to: "/user/".concat(user.Username)
       }, /*#__PURE__*/_react.default.createElement(_Button.default, {
         variant: "link"
       }, "Update Profile")))), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, "Favorite Movies"), favoriteMovieList.map(function (movies) {

@@ -6,22 +6,13 @@ import axios from "axios";
 
 import { Card, Button, Image } from "react-bootstrap";
 
-export class MovieView extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {};
-  }
-
-  backButton = () => {
-    let history = useHistory();
-
-    function handleClick() {
-      history.push("");
-    }
+export function MovieView(props) {
+  let backButton = () => {
+  let history = useHistory();
+  history.push("/")
   };
 
-  addToFav(movie) {
+  function addToFav(movie) {
     let token = localStorage.getItem("token");
     let url =
       "https://obscure-sands-24856.herokuapp.com/users/" +
@@ -36,7 +27,7 @@ export class MovieView extends React.Component {
     alert("Added to the list!");
   }
 
-  render() {
+  
     const { movie } = this.props;
 
     if (!movie) return null;
@@ -59,17 +50,17 @@ export class MovieView extends React.Component {
           <Link to={`/genre/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
           </Link>
-          <Button variant="secondary" onClick={() => this.addToFav(movie)}>
+          {/* <Button variant="secondary" onClick={() => this.addToFav(movie)}>
             Add to Favorites
-          </Button>
-          <Button onClick={() => this.backButton(history)}>
+          </Button> */}
+          <Button onClick={() => backButton()}>
             Back to previous
           </Button>
         </Card.Footer>
       </div>
     );
   }
-}
+
 
 MovieView.propTypes = {
   movie: PropTypes.shape({

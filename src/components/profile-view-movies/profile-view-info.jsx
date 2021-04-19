@@ -22,16 +22,20 @@ export class ProfileViewInfo extends React.Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
+    let temporaryObject = {Username: localStorage.getItem("user")}
+    let newUser = Object.assign({},this.state.user,temporaryObject)
+    console.log("New User")
+
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem("user"),
-      });
+      // this.setState({
+      //   user: Object.assign({},this.state.user,temporaryObject)
+      // });
       this.getUser(accessToken);
     }
   }
 
   getUser(token) {
-    let url = `https://obscure-sands-24856.herokuapp.com/user/${localStorage.getItem(
+    let url = `https://obscure-sands-24856.herokuapp.com/users/${localStorage.getItem(
       "user"
     )}`;
     axios
@@ -101,7 +105,7 @@ export class ProfileViewInfo extends React.Component {
             <Card.Text></Card.Text>
           </Card.Body>
           <Card.Footer>
-            <Link to={`/user/${user}`}>
+            <Link to={`/user/${user.Username}`}>
               <Button variant="link">Update Profile</Button>
             </Link>
           </Card.Footer>
