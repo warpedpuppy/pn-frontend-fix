@@ -7,15 +7,15 @@ import axios from "axios";
 import { Card, Button, Image } from "react-bootstrap";
 
 export function MovieView(props) {
-  let backButton = () => {
-  let history = useHistory();
-  history.push("/")
-  };
+
+    const history = useHistory();
+  
+
 
   function addToFav(movie) {
     let token = localStorage.getItem("token");
     let url =
-      "https://obscure-sands-24856.herokuapp.com/users/" +
+      "http://localhost:8080/users/" +
       localStorage.getItem("user") +
       "/movies/" +
       movie._id;
@@ -28,14 +28,14 @@ export function MovieView(props) {
   }
 
   
-    const { movie } = this.props;
+    const { movie } = props;
 
     if (!movie) return null;
 
     return (
       <div className="movie-view movie-border">
         <Card style={{ width: "50rem" }}>
-          <Image className="movie-poster" src={movie.ImagePath} rounded />
+          {/* <Image className="movie-poster" src={movie.ImagePath} rounded /> */}
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Body>
             <Card.Text>{movie.Description}</Card.Text>
@@ -53,7 +53,7 @@ export function MovieView(props) {
           {/* <Button variant="secondary" onClick={() => this.addToFav(movie)}>
             Add to Favorites
           </Button> */}
-          <Button onClick={() => backButton()}>
+          <Button onClick={() => history.push("/")}>
             Back to previous
           </Button>
         </Card.Footer>

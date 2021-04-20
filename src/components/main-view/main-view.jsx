@@ -38,7 +38,7 @@ export class MainView extends React.Component {
 
   getMovies(token) {
     axios
-      .get("https://obscure-sands-24856.herokuapp.com/movies", {
+      .get("http://localhost:8080/movies", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -95,7 +95,7 @@ export class MainView extends React.Component {
   }
 
   getUser(token) {
-    let url = `https://obscure-sands-24856.herokuapp.com/users/${localStorage.getItem(
+    let url = `http://localhost:8080/users/${localStorage.getItem(
       "user"
     )}`;
     axios
@@ -141,7 +141,8 @@ export class MainView extends React.Component {
                 return (
                   <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                 );
-              return movies.map((m) => <MovieCard key={m._id} movie={m} />);
+                return <MoviesList />
+              // return movies.map((m) => <MovieCard key={m._id} movie={m} />);
             }}
           />
 

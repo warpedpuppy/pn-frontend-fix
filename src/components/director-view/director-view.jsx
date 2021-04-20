@@ -35,9 +35,9 @@ export class DirectorView extends React.Component {
 
 DirectorView.propTypes = {
   movies: PropTypes.shape({
-    Director: {
+    Director:  PropTypes.shape({
       Name: PropTypes.string.isRequired,
       Bio: PropTypes.string.isRequired
-    },
+    }),
   })
 }

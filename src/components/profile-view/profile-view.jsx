@@ -15,14 +15,17 @@ export function ProfileView(props) {
     let user=localStorage.getItem("user")
     let token=localStorage.getItem("token")
     e.preventDefault();
+    let data = {
+      Username: username,
+      Password: password,
+      Email: email,
+    }
     axios
       .put(
-        `https://obscure-sands-24856.herokuapp.com/users/${user}`,
+        `http://localhost:8080/users/${user}`,
+        data,
         {
            headers: { Authorization: `Bearer ${token}`},
-          Username: username,
-          Password: password,
-          Email: email,
         }
       )
       .then((response) => {
@@ -83,7 +86,7 @@ export function ProfileView(props) {
 //   }
 
 //   getUser(token) {
-//     let url = 'https://obscure-sands-24856.herokuapp.com/users/' +
+//     let url = 'http://localhost:8080/users/' +
 //     localStorage.getItem("user");
 //     axios.get(url, {headers: {Authorization: `Bearer ${token}`}
 //     })

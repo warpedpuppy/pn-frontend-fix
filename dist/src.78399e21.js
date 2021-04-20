@@ -34332,7 +34332,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-},{"./../utils":"../node_modules/axios/lib/utils.js","./../core/settle":"../node_modules/axios/lib/core/settle.js","./../helpers/cookies":"../node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"../node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"../node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"../node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"../node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"../node_modules/axios/lib/core/createError.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{"./../utils":"../node_modules/axios/lib/utils.js","./../core/settle":"../node_modules/axios/lib/core/settle.js","./../helpers/cookies":"../node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"../node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"../node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"../node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"../node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"../node_modules/axios/lib/core/createError.js"}],"../../../.config/yarn/global/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -34642,7 +34642,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-},{"./utils":"../node_modules/axios/lib/utils.js","./helpers/normalizeHeaderName":"../node_modules/axios/lib/helpers/normalizeHeaderName.js","./adapters/xhr":"../node_modules/axios/lib/adapters/xhr.js","./adapters/http":"../node_modules/axios/lib/adapters/xhr.js","process":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/axios/lib/core/dispatchRequest.js":[function(require,module,exports) {
+},{"./utils":"../node_modules/axios/lib/utils.js","./helpers/normalizeHeaderName":"../node_modules/axios/lib/helpers/normalizeHeaderName.js","./adapters/xhr":"../node_modules/axios/lib/adapters/xhr.js","./adapters/http":"../node_modules/axios/lib/adapters/xhr.js","process":"../../../.config/yarn/global/node_modules/process/browser.js"}],"../node_modules/axios/lib/core/dispatchRequest.js":[function(require,module,exports) {
 'use strict';
 
 var utils = require('./../utils');
@@ -42424,7 +42424,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _default = (0, _createWithBsPrefix.default)('card-columns');
 
 exports.default = _default;
-},{"./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -42451,12 +42451,12 @@ function getBundleURL() {
 }
 
 function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
 }
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -42491,12 +42491,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/movie-card/movie-card.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/movie-card/movie-card.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42600,9 +42600,11 @@ var _movieCard = require("../movie-card/movie-card");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
-  var visibilityFilter = state.visibilityFilter;
+  var visibilityFilter = state.visibilityFilter,
+      movies = state.movies;
   return {
-    visibilityFilter: visibilityFilter
+    visibilityFilter: visibilityFilter,
+    movies: movies
   };
 };
 
@@ -42613,7 +42615,7 @@ function MoviesList(props) {
 
   if (visibilityFilter !== '') {
     filteredMovies = movies.filter(function (m) {
-      return m.Title.includes(visibilityFilter);
+      return m.Title.toLowerCase().includes(visibilityFilter.toLowerCase());
     });
   }
 
@@ -42623,7 +42625,7 @@ function MoviesList(props) {
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "movies-list"
   }, /*#__PURE__*/_react.default.createElement(_visibilityFilterInput.default, {
-    visibilityFilter: visibilityFiler
+    visibilityFilter: visibilityFilter
   }), filteredMovies.map(function (m) {
     return /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
       key: m._id,
@@ -42640,7 +42642,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53618,15 +53620,12 @@ var _reactBootstrap = require("react-bootstrap");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function MovieView(props) {
-  var backButton = function backButton() {
-    var history = (0, _reactRouterDom.useHistory)();
-    history.push("/");
-  };
+  var history = (0, _reactRouterDom.useHistory)();
 
   function addToFav(movie) {
     var token = localStorage.getItem("token");
 
-    var url = "https://obscure-sands-24856.herokuapp.com/users/" + localStorage.getItem("user") + "/movies/" + movie._id;
+    var url = "http://localhost:8080/users/" + localStorage.getItem("user") + "/movies/" + movie._id;
 
     _axios.default.post(url, {
       headers: {
@@ -53639,7 +53638,7 @@ function MovieView(props) {
     alert("Added to the list!");
   }
 
-  var movie = this.props.movie;
+  var movie = props.movie;
   if (!movie) return null;
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "movie-view movie-border"
@@ -53647,11 +53646,7 @@ function MovieView(props) {
     style: {
       width: "50rem"
     }
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Image, {
-    className: "movie-poster",
-    src: movie.ImagePath,
-    rounded: true
-  }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, null, movie.Title), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, movie.Description), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Director: ", movie.Director.Name), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Genre: ", movie.Genre.Name))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Footer, {
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, null, movie.Title), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, movie.Description), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Director: ", movie.Director.Name), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Genre: ", movie.Genre.Name))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Footer, {
     style: {
       width: "50rem"
     }
@@ -53665,7 +53660,7 @@ function MovieView(props) {
     variant: "link"
   }, "Genre")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     onClick: function onClick() {
-      return backButton();
+      return history.push("/");
     }
   }, "Back to previous")));
 }
@@ -53684,7 +53679,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53738,7 +53733,7 @@ function LoginView(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault(); //  Send a request to the server for authentication
 
-    _axios.default.post("https://obscure-sands-24856.herokuapp.com/login", {
+    _axios.default.post("http://localhost:8080/login", {
       Username: username,
       Password: password
     }).then(function (response) {
@@ -53790,7 +53785,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53847,7 +53842,7 @@ function RegistrationView(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
-    _axios.default.post("https://obscure-sands-24856.herokuapp.com/users", {
+    _axios.default.post("http://localhost:8080/users", {
       Username: username,
       Password: password,
       Email: email
@@ -53910,7 +53905,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53987,10 +53982,10 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
 exports.DirectorView = DirectorView;
 DirectorView.propTypes = {
   movies: _propTypes.default.shape({
-    Director: {
+    Director: _propTypes.default.shape({
       Name: _propTypes.default.string.isRequired,
       Bio: _propTypes.default.string.isRequired
-    }
+    })
   })
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./director-view.scss":"components/director-view/director-view.scss","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js"}],"components/genre-view/genre-view.scss":[function(require,module,exports) {
@@ -53998,7 +53993,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genre-view/genre-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genre-view/genre-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54086,7 +54081,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54144,14 +54139,16 @@ function ProfileView(props) {
     var user = localStorage.getItem("user");
     var token = localStorage.getItem("token");
     e.preventDefault();
-
-    _axios.default.put("https://obscure-sands-24856.herokuapp.com/users/".concat(user), {
-      headers: {
-        Authorization: "Bearer ".concat(token)
-      },
+    var data = {
       Username: username,
       Password: password,
       Email: email
+    };
+
+    _axios.default.put("http://localhost:8080/users/".concat(user), data, {
+      headers: {
+        Authorization: "Bearer ".concat(token)
+      }
     }).then(function (response) {
       var data = response.data;
       props.onUpdatedUserInfo(data);
@@ -54203,7 +54200,7 @@ function ProfileView(props) {
 //     }
 //   }
 //   getUser(token) {
-//     let url = 'https://obscure-sands-24856.herokuapp.com/users/' +
+//     let url = 'http://localhost:8080/users/' +
 //     localStorage.getItem("user");
 //     axios.get(url, {headers: {Authorization: `Bearer ${token}`}
 //     })
@@ -54224,7 +54221,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile-view-movies/profile-view-info.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile-view-movies/profile-view-info.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54317,7 +54314,7 @@ var ProfileViewInfo = /*#__PURE__*/function (_React$Component) {
     value: function getUser(token) {
       var _this2 = this;
 
-      var url = "https://obscure-sands-24856.herokuapp.com/users/".concat(localStorage.getItem("user"));
+      var url = "http://localhost:8080/users/".concat(localStorage.getItem("user"));
 
       _axios.default.get(url, {
         headers: {
@@ -54339,7 +54336,7 @@ var ProfileViewInfo = /*#__PURE__*/function (_React$Component) {
     value: function removeUser(token) {
       var _this3 = this;
 
-      var url = "https://obscure-sands-24856.herokuapp.com/users/".concat(localStorage.getItem("user"));
+      var url = "http://localhost:8080/users/".concat(localStorage.getItem("user"));
 
       _axios.default.delete(url, {
         headers: {
@@ -54363,7 +54360,7 @@ var ProfileViewInfo = /*#__PURE__*/function (_React$Component) {
     value: function removeFav(movies) {
       var token = localStorage.getItem("token");
 
-      var url = "https://obscure-sands-24856.herokuapp.com/users/" + localStorage.getItem("user") + "/movies/" + movies._id;
+      var url = "http://localhost:8080/users/" + localStorage.getItem("user") + "/movies/" + movies._id;
 
       _axios.default.delete(url, {
         headers: {
@@ -54513,7 +54510,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function getMovies(token) {
       var _this2 = this;
 
-      _axios.default.get("https://obscure-sands-24856.herokuapp.com/movies", {
+      _axios.default.get("http://localhost:8080/movies", {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -54580,7 +54577,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function getUser(token) {
       var _this3 = this;
 
-      var url = "https://obscure-sands-24856.herokuapp.com/users/".concat(localStorage.getItem("user"));
+      var url = "http://localhost:8080/users/".concat(localStorage.getItem("user"));
 
       _axios.default.get(url, {
         headers: {
@@ -54636,12 +54633,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
               return _this4.onLoggedIn(user);
             }
           });
-          return movies.map(function (m) {
-            return /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
-              key: m._id,
-              movie: m
-            });
-          });
+          return /*#__PURE__*/_react.default.createElement(_moviesList.default, null); // return movies.map((m) => <MovieCard key={m._id} movie={m} />);
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
         path: "/register",
@@ -54780,7 +54772,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -54852,7 +54844,7 @@ var MyFlixApplication = /*#__PURE__*/function (_React$Component) {
 var container = document.getElementsByClassName('app-container')[0]; // Tells React to render your app in the root DOM element
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(MyFlixApplication), container);
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","redux":"../node_modules/redux/es/redux.js","react-redux":"../node_modules/react-redux/es/index.js","redux-devtools-extension":"../node_modules/redux-devtools-extension/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./reducers/reducers":"reducers/reducers.js","./index.scss":"index.scss"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","redux":"../node_modules/redux/es/redux.js","react-redux":"../node_modules/react-redux/es/index.js","redux-devtools-extension":"../node_modules/redux-devtools-extension/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./reducers/reducers":"reducers/reducers.js","./index.scss":"index.scss"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -54880,7 +54872,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57345" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51222" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -55056,5 +55048,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
+},{}]},{},["../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map

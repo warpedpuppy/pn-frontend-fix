@@ -35,7 +35,7 @@ export class ProfileViewInfo extends React.Component {
   }
 
   getUser(token) {
-    let url = `https://obscure-sands-24856.herokuapp.com/users/${localStorage.getItem(
+    let url = `http://localhost:8080/users/${localStorage.getItem(
       "user"
     )}`;
     axios
@@ -53,7 +53,7 @@ export class ProfileViewInfo extends React.Component {
 
   // Removes a user from the database
   removeUser(token) {
-    let url = `https://obscure-sands-24856.herokuapp.com/users/${localStorage.getItem(
+    let url = `http://localhost:8080/users/${localStorage.getItem(
       "user"
     )}`;
     axios
@@ -74,7 +74,7 @@ export class ProfileViewInfo extends React.Component {
   removeFav(movies) {
     let token = localStorage.getItem("token");
     let url =
-      "https://obscure-sands-24856.herokuapp.com/users/" +
+      "http://localhost:8080/users/" +
       localStorage.getItem("user") +
       "/movies/" +
       movies._id;
